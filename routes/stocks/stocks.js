@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
   res.render("stocks/stocks.html", {title: "Stocks Lookup"});
 });
 
-router.get('/:ticker', function(req, res, next) {
+router.get('/ticker', function(req, res, next) {
     tickerLookup(req, res);
 });
 
