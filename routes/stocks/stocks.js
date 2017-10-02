@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
   res.render("stocks/stocks.html", {title: "Stocks Lookup"});
 });
 
-router.get('/ticker', tickerLookup.ticker);
+router.get('/:ticker', tickerLookup.ticker);
 
 
 module.exports = router;
