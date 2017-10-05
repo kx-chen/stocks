@@ -8,10 +8,11 @@ module.exports = {
         
 
     request('https://www.alphavantage.co/query?function=SMA&symbol=' + ticker + '&interval=daily&time_period=10&series_type=open&apikey=365B4T6IUY7YO4D7', function (error, response, body) {
-    var rawReturned = JSON.parse(body);
-    var result = rawReturned["Technical Analysis: SMA"]["2017-10-04"].SMA;
-      results.body = JSON.stringify(result);
-      console.log(results.body);
+        var rawReturned = JSON.parse(body);
+        
+        var result = rawReturned["Technical Analysis: SMA"]["2017-10-04"].SMA;
+        results.body = JSON.stringify(result);
+        console.log(results.body);
 
     });
     
