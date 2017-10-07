@@ -12,10 +12,11 @@ function parseJson(rawReturned, res, ticker) {
          for (var i = 0; i < Object.keys(rawReturned["Time Series (Daily)"]).length; i++){
 
             results.push(rawReturned["Time Series (Daily)"][keys[i]]["4. close"]);
-
+            
+            
             
             if (i == Object.keys(rawReturned["Time Series (Daily)"]).length - 1) {
-                console.log("hey");
+                results = results.reverse();
                 res.render("stocks/lookup.html", {title:"Lookup", ticker: ticker, results: results});
              }
         
