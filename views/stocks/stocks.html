@@ -1,8 +1,13 @@
 <% include ../layouts/layout.html %>
 <title> <%= title %> </title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.js"></script>
-    
+
     <h1> Stocks Lookup: </h1>
-  <input type="text" name="search" placeholder="Search.." class="form-control" onSubmit="submit()">
+<form id="search">
+  <input id="ticker" type="text" name="ticker" placeholder="Search.." class="form-control" autofocus="autofocus"> 
+  <br />
+  <button type="submit" class="btn btn-primary">Submit</button>
   
+ </form>
+ 
  <% include ../layouts/footer.html %>
