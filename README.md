@@ -1,4 +1,4 @@
 # stocks
-Live stocks app
+Stock Charting App
 
 API: https://www.alphavantage.co/documentation/
