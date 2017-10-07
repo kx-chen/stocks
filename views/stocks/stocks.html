@@ -4,10 +4,23 @@
 
     <h1> Stocks Lookup: </h1>
 <form id="search">
-  <input id="ticker" type="text" name="ticker" placeholder="Search.." class="form-control" autofocus="autofocus"> 
+  <input id="ticker" type="text" name="ticker" placeholder="Type a stock ticker symbol..." class="form-control" autofocus="autofocus"> 
   <br />
   <button type="submit" class="btn btn-primary">Submit</button>
   
  </form>
- 
+ <script>
+  $(document).ready(function () {
+      
+     $("#search").submit(function(e){
+        e.preventDefault();
+        
+        var searchValue = $('#ticker').val();
+         
+         window.location.href = window.location.href + '/' + searchValue;
+        
+    });
+});
+
+</script>
  <% include ../layouts/footer.html %>
