@@ -1,23 +1,21 @@
 var request = require('request');
-var results = [];
+// var results = [];
 
 // TODO: put this function elsewhere
 // function convertToInt(string) {
 //     return parseFloat(string)
 // }
-function parseJson(rawReturned, res, ticker) {
+function parseJson(rawReturned, req, res, ticker) {
     
     var keys = Object.keys(rawReturned["Time Series (Daily)"]);
-    
+    req.results = [];
          for (var i = 0; i < Object.keys(rawReturned["Time Series (Daily)"]).length; i++){
 
-            results.push(rawReturned["Time Series (Daily)"][keys[i]]["4. close"]);
-            
-            
-            
+            req.results.push(rawReturned["Time Series (Daily)"][keys[i]]["4. close"]);
+
             if (i == Object.keys(rawReturned["Time Series (Daily)"]).length - 1) {
-                results = results.reverse();
-                res.render("stocks/lookup.html", {title:"Lookup", ticker: ticker, results: results});
+                req.results = req.results.reverse();
+                res.render("stocks/lookup.html", {title:"Lookup", ticker: ticker, results: req.results});
              }
         
         }
@@ -25,6 +23,8 @@ function parseJson(rawReturned, res, ticker) {
 }
 
 function lookUpDaily(ticker, req, res) {
+    
+    // Shows daily results for past 100 days
     request('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=' + ticker + '&apikey=365B4T6IUY7YO4D7&outputsize=compact', function (error, response, body) {
         var rawReturned = JSON.parse(body);
         
@@ -32,7 +32,7 @@ function lookUpDaily(ticker, req, res) {
             res.render("public/error.html", {message: "Could not find specified stock. Try again."});
             
         } else {
-            parseJson(rawReturned, res, ticker);
+            parseJson(rawReturned, req, res, ticker);
         }
         
         
