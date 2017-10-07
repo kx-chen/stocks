@@ -16,9 +16,18 @@
         e.preventDefault();
         
         var searchValue = $('#ticker').val();
-         
-         window.location.href = window.location.href + '/' + searchValue;
+        searchValue = searchValue.trim();
         
+
+        console.log(typeof(searchValue));
+        console.log(searchValue)
+        
+        if(searchValue == "" || searchValue == " " ) {
+          console.log("No input");
+        } else {
+          window.location.href = window.location.href + '/' + searchValue;
+        }
+
     });
 });
 
