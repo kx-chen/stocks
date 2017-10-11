@@ -8,6 +8,9 @@ function lookUp(ticker, req, res) {
 
         var final = parseResults(results);
 
+        var final = results;
+
+        final = '["' + final.join('", "') + '"]';
         console.log(final);
         res.render("stocks/lookup.html", {"ticker": ticker, "results": final, "title": "Lookup"});
     });

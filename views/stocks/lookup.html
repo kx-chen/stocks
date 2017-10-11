@@ -16,10 +16,8 @@
       google.charts.setOnLoadCallback(drawChart);
 
   function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-      <%= results %>
-      // Treat first row as data as well.
-    ], true);
+
+    var data = google.visualization.arrayToDataTable( <%- results %>, true);
 
     var options = {
       legend:'none'
