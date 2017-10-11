@@ -11,6 +11,8 @@ var about = require('./controllers/public/about.js')
 
 var app = express();
 
+var test = "test";
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);

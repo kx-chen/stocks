@@ -1,5 +1,7 @@
 // Controller for /stocks
 
+
+// https://www.quandl.com/api/v3/datasets/WIKI/goog/data.json?api_key=VLTxWTE1vKYjmxBWTiF3&rows=100
 var express = require('express');
 var router = express.Router();
 
