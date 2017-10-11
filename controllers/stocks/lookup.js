@@ -1,44 +1,30 @@
 var request = require('request');
-// var results = [];
 
-// TODO: put this function elsewhere
-// function convertToInt(string) {
-//     return parseFloat(string)
-// }
-function parseJson(rawReturned, req, res, ticker) {
-    
-    var keys = Object.keys(rawReturned["Time Series (Daily)"]);
-    req.results = [];
-         for (var i = 0; i < Object.keys(rawReturned["Time Series (Daily)"]).length; i++){
+function lookUp(ticker, req, res) {
+    request("https://www.quandl.com/api/v3/datasets/WIKI/" + ticker + "/data.json?api_key=VLTxWTE1vKYjmxBWTiF3&rows=100", function(error, response, body){
+        
+        body = JSON.parse(body);
+        var results = body["dataset_data"].data;
 
-            req.results.push(rawReturned["Time Series (Daily)"][keys[i]]["4. close"]);
+        var final = parseResults(results);
 
-            if (i == Object.keys(rawReturned["Time Series (Daily)"]).length - 1) {
-                req.results = req.results.reverse();
-                res.render("stocks/lookup.html", {title:"Lookup", ticker: ticker, results: req.results});
-             }
-        
-        }
-      
-}
-
-function lookUpDaily(ticker, req, res) {
-    
-    // Shows daily results for past 100 days
-    request('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=' + ticker + '&apikey=365B4T6IUY7YO4D7&outputsize=compact', function (error, response, body) {
-        var rawReturned = JSON.parse(body);
-        
-        if (rawReturned["Error Message"]) {
-            res.render("public/error.html", {message: "Could not find specified stock. Try again."});
-            
-        } else {
-            parseJson(rawReturned, req, res, ticker);
-        }
-        
-        
+        console.log(final);
+        res.render("stocks/lookup.html", {"ticker": ticker, "results": final, "title": "Lookup"});
     });
-        
+    
 }
+
+function parseResults(results) {
+    let parsedData = [];
+    results.forEach(function(value, index){
+        value = value.slice(0,5);
+        parsedData.push(value);
+    });
+
+    // console.log(parsedData);
+    return parsedData
+}
+
     
 module.exports = {
     
@@ -46,9 +32,7 @@ module.exports = {
     lookup: function(req, res) {
 
         var ticker = req.params.ticker;
-        lookUpDaily(ticker, req, res);
-        
-        // Clear the results array for the next request
-        results = [];
+        // lookUp also ends the request-response cycle
+        lookUp(ticker, req, res);
     }
 };

@@ -1,40 +1,38 @@
 <% include ../layouts/layout.html %>
 
 <title> <%= ticker %> - <%= title %> </title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
         <i class="fa fa-arrow-left" aria-hidden="true"></i><a href="/stocks"> Back</a>
         <hr>
     <h1> <%= ticker %> </h1>
     <hr>
 <p> Showing daily results for the past 100 days. </p>
-       <canvas id="myChart"></canvas>
-   
-    
-<script>
-var ctx = document.getElementById("myChart").getContext('2d');
-var myChart = new Chart(ctx, {
-    responsive: true,
-    type: 'line',
-    data: {
-        labels: [<%= results %>],
-        datasets: [{
-            borderColor: "rgb(75, 192, 192)",
-            label: "<%= ticker %>", 
-            data: [<%= results %>],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:false
-                }
-            }]
-        }
-    }
-});
 
+<p> <%= results %> </p>
 
-</script>
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      <%= results %>
+      // Treat first row as data as well.
+    ], true);
+
+    var options = {
+      legend:'none'
+    };
+
+    var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+
+    chart.draw(data, options);
+  }
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
 <% include ../layouts/footer.html %>
