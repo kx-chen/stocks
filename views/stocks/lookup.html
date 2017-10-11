@@ -9,7 +9,6 @@
     <hr>
 <p> Showing daily results for the past 100 days. </p>
 
-<p> <%= results %> </p>
 
 <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
@@ -20,17 +19,25 @@
     var data = google.visualization.arrayToDataTable( <%- results %>, true);
 
     var options = {
-      legend:'none'
-    };
+          title: 'Company Performance: ' + "<%= ticker %>",
+          // hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
+          explorer: { 
+            actions: ['dragToZoom', 'rightClickToReset'],
+            axis: 'horizontal',
+            keepInBounds: true},
+          colors: ['#D44E41'],
+          legend: "none",
+          chartArea: {right: "25%"}
+        };
 
-    var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
     chart.draw(data, options);
   }
     </script>
   </head>
   <body>
-    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+    <div id="chart_div" style="min-height: 100vh; min-width: 100vw%"></div>
   </body>
 </html>
 <% include ../layouts/footer.html %>
