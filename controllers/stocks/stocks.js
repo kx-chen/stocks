@@ -7,11 +7,12 @@ var router = express.Router();
 
 var lookup = require('./lookup');
 
-/* GET request for stocks listing. */
+// GET "/stocks"
 router.get('/', function(req, res, next) {
   res.render("stocks/stocks.html", {title: "Stocks Lookup"});
 });
 
+// GET "/stocks/:ticker"
 router.get('/:ticker', lookup.lookup);
 
 
